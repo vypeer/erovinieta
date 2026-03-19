@@ -1,0 +1,14 @@
+{
+  "domain": "erovinieta",
+  "name": "CNAIR eRovinieta",
+  "codeowners": [
+    "@cnecrea"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/cnecrea/erovinieta",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/cnecrea/erovinieta/issues",
+  "requirements": [],
+  "version": "2.3.0"
+}

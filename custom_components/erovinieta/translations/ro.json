@@ -1,0 +1,79 @@
+{
+    "title": "CNAIR eRovinieta",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Autentificare la serviciul CNAIR eRovinieta",
+                "description": "Introduceți datele de autentificare pentru contul dumneavoastră eRovinieta.",
+                "data": {
+                    "username": "Utilizator (email)",
+                    "password": "Parolă",
+                    "update_interval": "Interval de actualizare",
+                    "istoric_tranzactii": "Istoric tranzacții"
+                }
+            },
+            "reauth_confirm": {
+                "title": "Re-autentificare CNAIR eRovinieta",
+                "description": "Parola pentru contul **{username}** a expirat sau s-a schimbat. Introduceți noua parolă.",
+                "data": {
+                    "password": "Parolă nouă"
+                }
+            },
+            "reconfigure": {
+                "title": "Reconfigurare CNAIR eRovinieta",
+                "description": "Schimbați parola pentru contul **{username}**.",
+                "data": {
+                    "password": "Parolă nouă"
+                }
+            }
+        },
+        "error": {
+            "authentication_failed": "Autentificarea a eșuat. Verificați datele introduse.",
+            "cannot_connect": "Nu se poate conecta la serviciul eRovinieta. Verificați conexiunea la internet.",
+            "unknown": "Eroare neașteptată. Consultați jurnalele pentru detalii.",
+            "invalid_update_interval": "Intervalul de actualizare trebuie să fie între 300 și 86400 secunde."
+        },
+        "abort": {
+            "already_configured": "Acest cont este deja configurat.",
+            "reauth_successful": "Re-autentificarea a reușit.",
+            "reconfigure_successful": "Reconfigurarea a reușit."
+        }
+    },
+    "options": {
+        "error": {
+            "invalid_update_interval": "Intervalul de actualizare trebuie să fie între 300 și 86400 secunde.",
+            "license_key_empty": "Introdu o cheie de licență.",
+            "license_key_invalid": "Cheie de licență invalidă. Verifică formatul și încearcă din nou.",
+            "license_already_used": "Această cheie de licență a fost deja folosită pe altă instalare.",
+            "license_key_expired": "Această cheie de licență a expirat.",
+            "license_fingerprint_mismatch": "Această cheie de licență este asociată altei instalări.",
+            "license_network_error": "Nu se poate conecta la serverul de licențe. Verifică conexiunea la internet.",
+            "license_server_error": "Eroare server licențe. Încearcă din nou mai târziu."
+        },
+        "step": {
+            "init": {
+                "title": "Opțiuni CNAIR eRovinieta",
+                "description": "Alegeți categoria pe care doriți să o editați.",
+                "menu_options": {
+                    "settings": "Setări",
+                    "licenta": "Licență"
+                }
+            },
+            "settings": {
+                "title": "Setări CNAIR eRovinieta",
+                "description": "Configurați intervalul de actualizare a datelor și perioada de istoric pentru tranzacții.",
+                "data": {
+                    "update_interval": "Interval de actualizare",
+                    "istoric_tranzactii": "Istoric tranzacții"
+                }
+            },
+            "licenta": {
+                "title": "Licență eRovinieta",
+                "description": "{license_status}\n\nIntrodu cheia de licență pentru a activa sau reînnoi integrarea.",
+                "data": {
+                    "license_key": "Cheie de licență"
+                }
+            }
+        }
+    }
+}
