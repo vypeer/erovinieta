@@ -39,6 +39,7 @@ from .const import (
     DOMAIN,
     ISTORIC_TRANZACTII_DEFAULT,
     LICENSE_DATA_KEY,
+    LICENSE_PURCHASE_URL,
     MAX_UPDATE_INTERVAL,
     MIN_UPDATE_INTERVAL,
 )
@@ -389,6 +390,9 @@ class ErovinietaOptionsFlow(config_entries.OptionsFlow):
             mgr = LicenseManager(self.hass)
             await mgr.async_load()
 
+        # Detect language
+        is_ro = self.hass.config.language == "ro"
+
         # Informații pentru descrierea formularului
         server_status = mgr.status  # 'licensed', 'trial', 'expired', 'unlicensed'
 
@@ -422,32 +426,69 @@ class ErovinietaOptionsFlow(config_entries.OptionsFlow):
             )
 
         elif server_status == "trial":
-            description_placeholders["license_status"] = (
-                f"⏳ Evaluare — {mgr.trial_days_remaining} zile rămase"
-            )
+            days = mgr.trial_days_remaining
+            if is_ro:
+                status_lines = [
+                    f"⏳ Evaluare — {days} zile rămase",
+                    "",
+                    f"🛒 Obține licență: {LICENSE_PURCHASE_URL}",
+                ]
+            else:
+                status_lines = [
+                    f"⏳ Trial — {days} days remaining",
+                    "",
+                    f"🛒 Get a license: {LICENSE_PURCHASE_URL}",
+                ]
+            description_placeholders["license_status"] = "\n".join(status_lines)
         elif server_status == "expired":
             from datetime import datetime
 
-            status_lines = ["❌ Licență expirată"]
+            status_lines = []
+            if is_ro:
+                status_lines.append("❌ Licență expirată")
+            else:
+                status_lines.append("❌ License expired")
 
             if mgr.activated_at:
                 act_date = datetime.fromtimestamp(
                     mgr.activated_at
                 ).strftime("%d.%m.%Y")
-                status_lines.append(f"Activată la: {act_date}")
+                if is_ro:
+                    status_lines.append(f"Activată la: {act_date}")
+                else:
+                    status_lines.append(f"Activated on: {act_date}")
             if mgr.license_expires_at:
                 exp_date = datetime.fromtimestamp(
                     mgr.license_expires_at
                 ).strftime("%d.%m.%Y")
-                status_lines.append(f"Expirată la: {exp_date}")
+                if is_ro:
+                    status_lines.append(f"Expirată la: {exp_date}")
+                else:
+                    status_lines.append(f"Expired on: {exp_date}")
+
+            status_lines.append("")
+            if is_ro:
+                status_lines.append(f"🛒 Obține licență: {LICENSE_PURCHASE_URL}")
+            else:
+                status_lines.append(f"🛒 Get a license: {LICENSE_PURCHASE_URL}")
 
             description_placeholders["license_status"] = "\n".join(
                 status_lines
             )
         else:
-            description_placeholders["license_status"] = (
-                "❌ Fără licență — funcționalitate blocată"
-            )
+            if is_ro:
+                status_lines = [
+                    "❌ Fără licență — funcționalitate blocată",
+                    "",
+                    f"🛒 Obține licență: {LICENSE_PURCHASE_URL}",
+                ]
+            else:
+                status_lines = [
+                    "❌ No license — functionality blocked",
+                    "",
+                    f"🛒 Get a license: {LICENSE_PURCHASE_URL}",
+                ]
+            description_placeholders["license_status"] = "\n".join(status_lines)
 
         if user_input is not None:
             cheie = user_input.get(CONF_LICENSE_KEY, "").strip()

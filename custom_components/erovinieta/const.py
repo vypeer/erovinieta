@@ -1,5 +1,7 @@
 """Constante pentru integrarea CNAIR eRovinieta."""
 
+from typing import Final
+
 DOMAIN = "erovinieta"
 VERSION = "2.3.0"
 ATTRIBUTION = "Date furnizate de www.erovinieta.ro"
@@ -49,3 +51,5 @@ TOKEN_VALIDITY_SECONDS = 3500
 # ─────────────────────────────────────────────
 CONF_LICENSE_KEY = "license_key"
 LICENSE_DATA_KEY = "erovinieta_license_manager"
+
+LICENSE_PURCHASE_URL: Final = "https://hubinteligent.org/licenta/erovinieta"
