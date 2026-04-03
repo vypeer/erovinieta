@@ -94,7 +94,7 @@ WARNING  custom_components.erovinieta.coordinator: Date incomplete pentru vehicu
 
 **Rezolvare**:
 1. Verifică cheia de licență în OptionsFlow
-2. Dacă a expirat, reînnoiește de la [hubinteligent.org/licenta/erovinieta](https://hubinteligent.org/licenta/erovinieta)
+2. Dacă a expirat, reînnoiește de la [hubinteligent.org/donate?ref=erovinieta](https://hubinteligent.org/donate?ref=erovinieta)
 3. Dacă serverul nu e accesibil, există un grace period — licența rămâne validă temporar
 
 ---
