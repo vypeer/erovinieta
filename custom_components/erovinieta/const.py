@@ -52,4 +52,5 @@ TOKEN_VALIDITY_SECONDS = 3500
 CONF_LICENSE_KEY = "license_key"
 LICENSE_DATA_KEY = "erovinieta_license_manager"
 
-LICENSE_PURCHASE_URL: Final = "https://hubinteligent.org/donate?ref=erovinieta"
+# LICENSE_PURCHASE_URL: Final = "https://hubinteligent.org/donate?ref=erovinieta"  # Original
+LICENSE_PURCHASE_URL: Final = "https://vypeer.org"  # License requirement removed

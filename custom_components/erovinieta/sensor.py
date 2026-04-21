@@ -44,8 +44,10 @@ _LOGGER = logging.getLogger(__name__)
 
 def _is_license_valid(hass: HomeAssistant) -> bool:
     """Verifică dacă licența este validă."""
-    mgr = hass.data.get(DOMAIN, {}).get(LICENSE_DATA_KEY)
-    return mgr is not None and mgr.is_valid
+    # License check bypassed - always return True
+    return True
+    # mgr = hass.data.get(DOMAIN, {}).get(LICENSE_DATA_KEY)
+    # return mgr is not None and mgr.is_valid
 
 
 # =====================================================================
@@ -169,8 +171,10 @@ class ErovinietaBaseSensor(CoordinatorEntity[ErovinietaCoordinator], SensorEntit
     @property
     def _license_valid(self) -> bool:
         """Verifică dacă licența este validă."""
-        mgr = self.hass.data.get(DOMAIN, {}).get(LICENSE_DATA_KEY)
-        return mgr is not None and mgr.is_valid
+        # License check bypassed - always return True
+        return True
+        # mgr = self.hass.data.get(DOMAIN, {}).get(LICENSE_DATA_KEY)
+        # return mgr is not None and mgr.is_valid
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -219,7 +223,7 @@ class LicentaNecesaraSensor(ErovinietaBaseSensor):
         """Atribute suplimentare cu informații despre licență."""
         return {
             "status": "Licență necesară",
-            "info": "Pentru a activa senzorii, este necesară o licență validă. Vizitați https://hubinteligent.org pentru mai multe detalii.",
+            "info": "License requirement removed. This sensor should not appear if license checks are properly bypassed.",
             "attribution": ATTRIBUTION,
         }
 

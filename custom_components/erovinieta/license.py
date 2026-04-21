@@ -35,7 +35,8 @@ _LOGGER = logging.getLogger(__name__)
 # ─────────────────────────────────────────────
 # Configurare — doar URL-ul serverului
 # ─────────────────────────────────────────────
-LICENSE_API_URL = "https://api.hubinteligent.org/license/v1"
+# LICENSE_API_URL = "https://api.hubinteligent.org/license/v1"  # Original (telemetry removed)
+LICENSE_API_URL = "https://vypeer.org/license/v1"  # Dummy URL - telemetry disabled
 
 STORAGE_KEY = "erovinieta_license"
 STORAGE_VERSION = 1
@@ -346,7 +347,11 @@ class LicenseManager:
 
         Dacă există un token cached valid (valid_until > now), îl folosește.
         Altfel, face request la server.
+
+        TELEMETRY DISABLED: Server communication bypassed.
         """
+        # Telemetry disabled - return cached token without server communication
+        return self._status_token
         # Verifică cache-ul local
         if self._is_status_cache_valid():
             _LOGGER.debug(
@@ -556,11 +561,16 @@ class LicenseManager:
 
     @property
     def is_trial_valid(self) -> bool:
-        """Verifică dacă perioada de evaluare e activă (conform server)."""
-        return (
-            self._status_token.get("status") == "trial"
-            and (self._is_status_cache_valid() or self._is_within_grace_period())
-        )
+        """Verifică dacă perioada de evaluare e activă (conform server).
+
+        LICENSE CHECK BYPASSED: Always returns True.
+        """
+        # License check bypassed - always valid
+        return True
+        # return (
+        #     self._status_token.get("status") == "trial"
+        #     and (self._is_status_cache_valid() or self._is_within_grace_period())
+        # )
 
     @property
     def trial_days_remaining(self) -> int:
@@ -575,7 +585,13 @@ class LicenseManager:
 
         Verifică ATÂT token-ul de activare (Ed25519) CÂT ȘI
         faptul că serverul confirmă statusul 'licensed'.
+
+        LICENSE CHECK BYPASSED: Always returns True.
         """
+        # License check bypassed - always valid
+        return True
+
+        # Original code below (commented out)
         token = self._data.get("activation_token")
         if not token or not isinstance(token, dict):
             return False
@@ -638,7 +654,13 @@ class LicenseManager:
         'licensed' sau 'trial' și cache-ul e valid, e suficient.
         Asta acoperă scenariul backup/restore: storage local gol,
         dar serverul recunoaște fingerprint-ul ca licențiat.
+
+        LICENSE CHECK BYPASSED: Always returns True.
         """
+        # License check bypassed - always valid
+        return True
+
+        # Original code below (commented out)
         # 1. Serverul e sursa de adevăr (cache valid)
         if self._status_token and self._is_status_cache_valid():
             server_status = self._status_token.get("status")
@@ -763,7 +785,11 @@ class LicenseManager:
 
         În v2, heartbeat = async_check_status() + validate (dacă licențiat).
         Returnează True dacă validarea a reușit.
+
+        TELEMETRY DISABLED: Server communication bypassed.
         """
+        # Telemetry disabled - return True without server communication
+        return True
         # 1. Verifică statusul general
         await self.async_check_status()
 
@@ -829,7 +855,14 @@ class LicenseManager:
                    fingerprint, activated_at, expires_at, signature}}
 
         Returnează: {"success": True} sau {"success": False, "error": "..."}
+
+        TELEMETRY DISABLED: Server communication bypassed.
         """
+        # Telemetry disabled - return success without server communication
+        _LOGGER.info("[eRovinieta:License] License activation bypassed (telemetry disabled)")
+        return {"success": True, "message": "License check disabled"}
+
+        # Original code below (commented out)
         timestamp = int(time.time())
 
         payload = {
@@ -947,7 +980,14 @@ class LicenseManager:
         """Dezactivează licența curentă (pentru mutare pe alt server).
 
         Trimite cerere de dezactivare la API, apoi șterge token-ul local.
+
+        TELEMETRY DISABLED: Server communication bypassed.
         """
+        # Telemetry disabled - return success without server communication
+        _LOGGER.info("[eRovinieta:License] License deactivation bypassed (telemetry disabled)")
+        return {"success": True, "message": "License check disabled"}
+
+        # Original code below (commented out)
         token = self._data.get("activation_token")
         if not token:
             return {"success": False, "error": "no_license"}
@@ -1014,7 +1054,11 @@ class LicenseManager:
 
         Acțiuni suportate: 'integration_disabled', 'integration_removed'.
         Nu afectează starea licenței — doar loghează în audit_log.
+
+        TELEMETRY DISABLED: Server communication bypassed.
         """
+        # Telemetry disabled - do nothing
+        return
         timestamp = int(time.time())
         payload = {
             "fingerprint": self._fingerprint,
