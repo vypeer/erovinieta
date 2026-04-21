@@ -475,7 +475,11 @@ async def _send_lifecycle_event(
     """Trimite un eveniment lifecycle direct (fără LicenseManager).
 
     Folosit în async_remove_entry când LicenseManager nu mai există.
+
+    TELEMETRY DISABLED: Server communication bypassed.
     """
+    # Telemetry disabled - do nothing
+    return
     import hashlib
     import hmac as hmac_lib
     import json
